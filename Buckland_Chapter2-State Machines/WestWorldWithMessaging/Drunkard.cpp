@@ -8,7 +8,6 @@ bool Drunkard::HandleMessage(const Telegram& msg)
 
 void Drunkard::Update()
 {
-  SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
   m_pStateMachine->Update();
 }
 
@@ -27,3 +26,24 @@ bool Drunkard::Drunk()const
 	}
 }
 
+void Drunkard::Print(std::string val)
+{
+    m_mutex->lock();
+
+    SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+    std::cout << std::endl;
+    std::cout << val;
+
+    m_mutex->unlock();
+}
+
+void Drunkard::PrintTelegram(std::string val)
+{
+    m_mutex->lock();
+
+    SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+    std::cout << std::endl;
+    std::cout << val;
+
+    m_mutex->unlock();
+}

@@ -33,7 +33,7 @@ void EnterSaloonAndGetDrunk::Enter(Drunkard* pDrunkard)
     //change location to the saloon
     if (pDrunkard->Location() != saloon)
     {
-        cout << "\n" << GetNameOfEntity(pDrunkard->ID()) << ": " << "It's time to get drunk !";
+        pDrunkard->Print(GetNameOfEntity(pDrunkard->ID()) + ": It's time to get drunk !");
 
         pDrunkard->ChangeLocation(saloon);
     }
@@ -46,16 +46,17 @@ void EnterSaloonAndGetDrunk::Execute(Drunkard* pDrunkard)
     
     pDrunkard->IncreaseAlcohol();
 
-    cout << "\n" << GetNameOfEntity(pDrunkard->ID()) << ": " << "Good soup !"; //pourquoi pas faire un switch pour qu'il dise d'autres trucs
+    pDrunkard->Print(GetNameOfEntity(pDrunkard->ID()) + ": Good soup !"); //pourquoi pas faire un switch pour qu'il dise d'autres trucs
 
     if (pDrunkard->Drunk())
     {
-        cout << "\n" << GetNameOfEntity(pDrunkard->ID()) << ": " << "Time to go to home !";
+        pDrunkard->Print(GetNameOfEntity(pDrunkard->ID()) + ": Time to go to home !");
+
         pDrunkard->GetFSM()->ChangeState(HomeSweetHome::Instance());
     }
     else
     {
-        cout << "\n" << GetNameOfEntity(pDrunkard->ID()) << ": " << "Another one !";
+        pDrunkard->Print(GetNameOfEntity(pDrunkard->ID()) + ": Another one !");
     }
 
 }
@@ -69,20 +70,15 @@ void EnterSaloonAndGetDrunk::Exit(Drunkard* pDrunkard)
 
 bool EnterSaloonAndGetDrunk::OnMessage(Drunkard* pDrunkard, const Telegram& msg)
 {
-    SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
     // if a miner goes in the saloon, the drunkard will provocate him
     switch (msg.Msg)
     {
     case Msg_BobIsInTheSaloon:
     {
-        cout << "\nMessage handled by " << GetNameOfEntity(pDrunkard->ID()) << " at time: "
-            << Clock->GetCurrentTime();
+        pDrunkard->PrintTelegram("Message handled by " + GetNameOfEntity(pDrunkard->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()));
 
-        SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-
-        cout << "\n" << GetNameOfEntity(pDrunkard->ID()) <<
-            ": Hey you, Imma kick yo ass !";
+        pDrunkard->Print(GetNameOfEntity(pDrunkard->ID()) + ": Hey you, Imma kick yo ass !");
 
         // if the drunkard is not enough drunk, he'll win the fight and continue to drink
         if (pDrunkard->GetDrunkness() < 3)
@@ -131,7 +127,7 @@ void HomeSweetHome::Enter(Drunkard* pDrunkard)
     //change location to home
     if (pDrunkard->Location() != home)
     {
-        cout << "\n" << GetNameOfEntity(pDrunkard->ID()) << ": " << "Imma go to bed !";
+        pDrunkard->Print(GetNameOfEntity(pDrunkard->ID()) + ": Imma go to bed !");
 
         pDrunkard->ChangeLocation(home);
     }
@@ -147,12 +143,12 @@ void HomeSweetHome::Execute(Drunkard* pDrunkard)
     if (RandFloat() < 0.33 && pDrunkard->GetDrunkness()>0)
     {
         pDrunkard->DecreaseAlcohol();
-        cout << "\n" << GetNameOfEntity(pDrunkard->ID()) << ": " << "Imma gonna throw up !";
+        pDrunkard->Print(GetNameOfEntity(pDrunkard->ID()) + ": Imma gonna throw up !");
 
     }
     else
     {
-        cout << "\n" << GetNameOfEntity(pDrunkard->ID()) << ": " << "ZZZZ...";
+        pDrunkard->Print(GetNameOfEntity(pDrunkard->ID()) + ": ZZZZ...");
     }
 
     
@@ -169,8 +165,7 @@ void HomeSweetHome::Execute(Drunkard* pDrunkard)
 
 void HomeSweetHome::Exit(Drunkard* pDrunkard)
 {
-    cout << "\n" << GetNameOfEntity(pDrunkard->ID()) << ": "
-        << "I'm a lil' thirsty !";
+    pDrunkard->Print(GetNameOfEntity(pDrunkard->ID()) + ": I'm a lil' thirsty !");
 }
 
 
@@ -194,11 +189,10 @@ void GoToHospital::Enter(Drunkard* pDrunkard)
 {
     //if the Drunkard is not already located at the hospital, he must
     //change location to the hospital
-    SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 
     if (pDrunkard->Location() != hospital)
     {
-        cout << "\n" << GetNameOfEntity(pDrunkard->ID()) << " is sent to the hospital.";
+        pDrunkard->Print(GetNameOfEntity(pDrunkard->ID()) + " is sent to the hospital.");
 
         pDrunkard->ChangeLocation(hospital);
     }
@@ -209,7 +203,7 @@ void GoToHospital::Execute(Drunkard* pDrunkard)
 {
     pDrunkard->DecreaseAlcohol();
 
-    cout << "\n" << GetNameOfEntity(pDrunkard->ID()) << " is resting.";
+    pDrunkard->Print(GetNameOfEntity(pDrunkard->ID()) + " is resting.");
 
     if (pDrunkard->Sober() || RandFloat() < 0.33)
     {
@@ -224,8 +218,7 @@ void GoToHospital::Execute(Drunkard* pDrunkard)
 
 void GoToHospital::Exit(Drunkard* pDrunkard)
 {
-    cout << "\n" << GetNameOfEntity(pDrunkard->ID()) << ": "
-        << "It's all good, I now go back to the saloon";
+    pDrunkard->Print(GetNameOfEntity(pDrunkard->ID()) + ": It's all good, I now go back to the saloon");
 }
 
 

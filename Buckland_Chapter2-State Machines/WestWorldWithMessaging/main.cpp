@@ -24,6 +24,11 @@ void runElsa(MinersWife* elsa) {
     elsa->Update();
 }
 
+void runJoe(Drunkard* joe) {
+    joe->Update();
+}
+
+
 int main()
 {
 //define this to send output to a text file (see locations.h)
@@ -41,7 +46,7 @@ int main()
   MinersWife* Elsa = new MinersWife(ent_Elsa, &writing);
 
   //create the drunkard
-  Drunkard* Joe = new Drunkard(ent_Drunk_Joe);
+  Drunkard* Joe = new Drunkard(ent_Drunk_Joe, &writing);
 
   //register them with the entity manager
   EntityMgr->RegisterEntity(Bob);
@@ -57,10 +62,11 @@ int main()
 
     std::thread bob(runBob, Bob);
     std::thread elsa(runElsa, Elsa);
-    Joe->Update();
+    std::thread joe(runJoe, Joe);
 
     bob.join();
     elsa.join();
+    joe.join();
 
     //dispatch any delayed messages
     Dispatch->DispatchDelayedMessages();

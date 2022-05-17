@@ -250,20 +250,15 @@ void QuenchThirst::Exit(Miner* pMiner)
 
 bool QuenchThirst::OnMessage(Miner* pMiner, const Telegram& msg)
 {
-    SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
     switch (msg.Msg)
     {
         // In this case, the miner will lose the fight, and go to the shack in order to get rest
     case Msg_DrunkardWin:
     {
-        cout << "\nMessage handled by " << GetNameOfEntity(pMiner->ID()) << " at time: "
-            << Clock->GetCurrentTime();
+        pMiner->PrintTelegram("Message handled by " + GetNameOfEntity(pMiner->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()));
 
-        SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
-
-        cout << "\n" << GetNameOfEntity(pMiner->ID()) <<
-            ": OUCH !! I'm hurt ! Go back to my place to heal up...";
+        pMiner->Print(GetNameOfEntity(pMiner->ID()) + ": OUCH !! I'm hurt ! Go back to my place to heal up...");
 
         pMiner->GetFSM()->ChangeState(GoHomeAndSleepTilRested::Instance());
 
@@ -273,12 +268,9 @@ bool QuenchThirst::OnMessage(Miner* pMiner, const Telegram& msg)
     // In this case, the miner will win the fight, and return to whatever he does
     case Msg_BobWin:
     {
-        cout << "\nMessage handled by " << GetNameOfEntity(pMiner->ID()) << " at time: "
-            << Clock->GetCurrentTime();
+        pMiner->PrintTelegram("Message handled by " + GetNameOfEntity(pMiner->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()));
 
-        SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
-
-        cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Get the fuck off man !!";
+        pMiner->Print(GetNameOfEntity(pMiner->ID()) + ": Get the fuck off man !!");
 
         return true;
     }

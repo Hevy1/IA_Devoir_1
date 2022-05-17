@@ -12,6 +12,7 @@
 #include <string>
 #include <cassert>
 #include <iostream>
+#include <mutex>
 
 #include "BaseGameEntity.h"
 #include "Locations.h"
@@ -40,9 +41,11 @@ private:
   //the higher the value, the drunkier the drunkard
   int                   m_iDrunkness;
 
+  std::mutex* m_mutex;
+
 public:
 
-  Drunkard(int id):m_Location(home),
+  Drunkard(int id, std::mutex* mutex):m_Location(home),
                    m_iDrunkness(0),
                    BaseGameEntity(id)
 
@@ -51,6 +54,8 @@ public:
     m_pStateMachine = new StateMachine<Drunkard>(this);
     
     m_pStateMachine->SetCurrentState(HomeSweetHome::Instance());
+
+    m_mutex = mutex;
 
 
     /* NOTE, A GLOBAL STATE HAS NOT BEEN IMPLEMENTED FOR THE DRUNKARD */
@@ -80,6 +85,10 @@ public:
   bool          Sober()const { return m_iDrunkness <= 0; }
 
   int           GetDrunkness() { return m_iDrunkness; }
+
+  void          Print(std::string val);
+  void          PrintTelegram(std::string val);
+
 };
 
 
