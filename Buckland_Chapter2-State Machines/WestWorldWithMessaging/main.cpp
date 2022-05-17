@@ -6,6 +6,7 @@
 #include "Locations.h"
 #include "Miner.h"
 #include "MinersWife.h"
+#include "Drunkard.h"
 #include "EntityManager.h"
 #include "MessageDispatcher.h"
 #include "misc/ConsoleUtils.h"
@@ -39,9 +40,13 @@ int main()
   //create his wife
   MinersWife* Elsa = new MinersWife(ent_Elsa, &writing);
 
+  //create the drunkard
+  Drunkard* Joe = new Drunkard(ent_Drunk_Joe);
+
   //register them with the entity manager
   EntityMgr->RegisterEntity(Bob);
   EntityMgr->RegisterEntity(Elsa);
+  EntityMgr->RegisterEntity(Joe);
 
   Dispatch->SetMutex(&writing);
 
@@ -52,6 +57,7 @@ int main()
 
     std::thread bob(runBob, Bob);
     std::thread elsa(runElsa, Elsa);
+    Joe->Update();
 
     bob.join();
     elsa.join();
@@ -65,6 +71,7 @@ int main()
   //tidy up
   delete Bob;
   delete Elsa;
+  delete Joe;
 
   //wait for a keypress before exiting
   PressAnyKeyToContinue();

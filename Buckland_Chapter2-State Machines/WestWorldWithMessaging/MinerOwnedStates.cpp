@@ -222,6 +222,13 @@ void QuenchThirst::Enter(Miner* pMiner)
     pMiner->ChangeLocation(saloon);
 
     pMiner->Print(GetNameOfEntity(pMiner->ID()) + ": Boy, ah sure is thusty! Walking to the saloon");
+  
+    // Sending a message indicating the arrival of the miner 
+    Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+        pMiner->ID(),         //ID of sender
+        ent_Drunk_Joe,        //ID of recipient
+        Msg_BobIsInTheSaloon,    //the message
+        NO_ADDITIONAL_INFO);
   }
 }
 
@@ -230,6 +237,7 @@ void QuenchThirst::Execute(Miner* pMiner)
   pMiner->BuyAndDrinkAWhiskey();
 
   pMiner->Print(GetNameOfEntity(pMiner->ID()) + ": That's mighty fine sippin' liquer");
+  pMiner->Print(GetNameOfEntity(pMiner->ID()) + ": Leaving the saloon, feelin' good");
 
   pMiner->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());  
 }
@@ -237,14 +245,48 @@ void QuenchThirst::Execute(Miner* pMiner)
 
 void QuenchThirst::Exit(Miner* pMiner)
 {
-    pMiner->Print(GetNameOfEntity(pMiner->ID()) + ": Leaving the saloon, feelin' good");
 }
 
 
 bool QuenchThirst::OnMessage(Miner* pMiner, const Telegram& msg)
 {
-  //send msg to global message handler
-  return false;
+    SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+
+    switch (msg.Msg)
+    {
+        // In this case, the miner will lose the fight, and go to the shack in order to get rest
+    case Msg_DrunkardWin:
+    {
+        cout << "\nMessage handled by " << GetNameOfEntity(pMiner->ID()) << " at time: "
+            << Clock->GetCurrentTime();
+
+        SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
+
+        cout << "\n" << GetNameOfEntity(pMiner->ID()) <<
+            ": OUCH !! I'm hurt ! Go back to my place to heal up...";
+
+        pMiner->GetFSM()->ChangeState(GoHomeAndSleepTilRested::Instance());
+
+        return true;
+    }
+
+    // In this case, the miner will win the fight, and return to whatever he does
+    case Msg_BobWin:
+    {
+        cout << "\nMessage handled by " << GetNameOfEntity(pMiner->ID()) << " at time: "
+            << Clock->GetCurrentTime();
+
+        SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
+
+        cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Get the fuck off man !!";
+
+        return true;
+    }
+
+
+    }//end switch
+
+    return false;
 }
 
 //------------------------------------------------------------------------EatStew
