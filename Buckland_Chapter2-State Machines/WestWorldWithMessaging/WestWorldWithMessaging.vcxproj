@@ -13,7 +13,8 @@
   <PropertyGroup Label="Globals">
     <SccProjectName />
     <SccLocalPath />
-    <ProjectGuid>{59BC708A-DF8B-48C1-848D-CC2ECFD64C18}</ProjectGuid>
+    <ProjectGuid>{5D660BA0-F393-4F24-AECE-BF6579F4D7B2}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -66,7 +67,7 @@
       <PrecompiledHeaderOutputFile>.\Release\WestWorldWithMessaging.pch</PrecompiledHeaderOutputFile>
       <ObjectFileName>.\Release\</ObjectFileName>
       <ProgramDataBaseFileName>.\Release\</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>D:\Cours\S3\IA\TP1\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <TypeLibraryName>.\Release\WestWorldWithMessaging.tlb</TypeLibraryName>
@@ -104,7 +105,7 @@
       <ObjectFileName>.\Debug\</ObjectFileName>
       <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <AdditionalIncludeDirectories>D:\Cours\S3\IA\TP1\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <TypeLibraryName>.\Debug\WestWorldWithMessaging.tlb</TypeLibraryName>
@@ -128,6 +129,8 @@
   <ItemGroup>
     <ClCompile Include="..\..\Common\Time\CrudeTimer.cpp" />
     <ClCompile Include="BaseGameEntity.cpp" />
+    <ClCompile Include="Drunkard.cpp" />
+    <ClCompile Include="DrunkardOwnedStates.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MessageDispatcher.cpp" />
@@ -147,6 +150,8 @@
     <ClInclude Include="..\..\Common\Time\CrudeTimer.h" />
     <ClInclude Include="..\..\Common\utils.h" />
     <ClInclude Include="BaseGameEntity.h" />
+    <ClInclude Include="Drunkard.h" />
+    <ClInclude Include="DrunkardOwnedStates.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EntityNames.h" />
     <ClInclude Include="Locations.h" />

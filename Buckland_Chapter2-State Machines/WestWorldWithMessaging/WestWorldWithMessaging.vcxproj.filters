@@ -2,18 +2,18 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{a8fb1727-171a-4d33-ae8d-865f82008866}</UniqueIdentifier>
+      <UniqueIdentifier>{c8e590ae-b2b5-494a-b3e4-83d88ac8a400}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{7e9d168e-4e62-4683-a0f2-1567b89f3bde}</UniqueIdentifier>
+      <UniqueIdentifier>{437629b7-df6b-45b8-9826-5903cf690ddb}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl</Extensions>
     </Filter>
     <Filter Include="misc">
-      <UniqueIdentifier>{d965efac-bda9-4258-8acf-de1b6b8f5bb8}</UniqueIdentifier>
+      <UniqueIdentifier>{81848f0c-3aeb-4da3-9119-7edf8e7e87d3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files">
-      <UniqueIdentifier>{f7ae1888-0c65-45ea-87da-ef5552d79a35}</UniqueIdentifier>
+      <UniqueIdentifier>{3a79677c-0f83-47ee-9ed5-e8c8e7071c21}</UniqueIdentifier>
       <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
   </ItemGroup>
@@ -44,6 +44,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Common\Time\CrudeTimer.cpp">
       <Filter>misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Drunkard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DrunkardOwnedStates.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +109,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Common\utils.h">
       <Filter>misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Drunkard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DrunkardOwnedStates.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
