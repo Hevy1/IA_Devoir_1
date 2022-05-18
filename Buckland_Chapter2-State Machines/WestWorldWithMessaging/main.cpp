@@ -14,8 +14,11 @@
 
 
 std::ofstream os;
+
+// Writing variable is a mutex used to only give access of writing in the console to one thread at a time
 std::mutex writing;
 
+// Firest creating the 3 functions that will be used for the threads
 void runBob(Miner* bob) {
     bob->Update();
 }
@@ -53,17 +56,18 @@ int main()
   EntityMgr->RegisterEntity(Elsa);
   EntityMgr->RegisterEntity(Joe);
 
+  // Giving the link to mutex to Dispatch, because it sometimes has to display messages too
   Dispatch->SetMutex(&writing);
 
   //run Bob and Elsa through a few Update calls
   for (int i=0; i<30; ++i)
   { 
-    Bob->Update();
-
+    // Lauching the updates of the entities thrgought their own threads
     std::thread bob(runBob, Bob);
     std::thread elsa(runElsa, Elsa);
     std::thread joe(runJoe, Joe);
 
+    // Waiting for all the threads to end
     bob.join();
     elsa.join();
     joe.join();

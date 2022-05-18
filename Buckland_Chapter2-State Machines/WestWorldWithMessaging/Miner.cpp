@@ -46,6 +46,9 @@ bool Miner::Fatigued()const
   return false;
 }
 
+// Print and PrintTelegram are generic functions called each time the agents want to display a message on the console
+// Those actions were standardised in order to easily add the mutex lock and unlock to the print actions
+
 void Miner::Print(std::string val)
 {
     m_mutex->lock();

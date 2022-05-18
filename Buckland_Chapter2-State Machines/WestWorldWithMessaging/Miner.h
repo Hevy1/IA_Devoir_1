@@ -54,6 +54,7 @@ private:
   //the higher the value, the more tired the miner
   int                   m_iFatigue;
 
+  // Mutex allowing the agent to write in console
   std::mutex*            m_mutex;
 
 public:

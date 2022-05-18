@@ -36,6 +36,7 @@ private:
   //is she presently cooking?
   bool            m_bCooking;
 
+  // Mutex allowing the agent to write in console
   std::mutex* m_mutex;
 
 
