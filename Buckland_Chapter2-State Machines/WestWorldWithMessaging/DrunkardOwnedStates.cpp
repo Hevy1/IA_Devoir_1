@@ -46,11 +46,11 @@ void EnterSaloonAndGetDrunk::Execute(Drunkard* pDrunkard)
     
     pDrunkard->IncreaseAlcohol();
 
-    pDrunkard->Print(GetNameOfEntity(pDrunkard->ID()) + ": Good soup !"); //pourquoi pas faire un switch pour qu'il dise d'autres trucs
+    pDrunkard->Print(GetNameOfEntity(pDrunkard->ID()) + ": Ahhh ! Nice drink !"); //pourquoi pas faire un switch pour qu'il dise d'autres trucs
 
     if (pDrunkard->Drunk())
     {
-        pDrunkard->Print(GetNameOfEntity(pDrunkard->ID()) + ": Time to go to home !");
+        pDrunkard->Print(GetNameOfEntity(pDrunkard->ID()) + ": Am too drunk, time to go to home ...");
 
         pDrunkard->GetFSM()->ChangeState(HomeSweetHome::Instance());
     }
@@ -127,7 +127,7 @@ void HomeSweetHome::Enter(Drunkard* pDrunkard)
     //change location to home
     if (pDrunkard->Location() != home)
     {
-        pDrunkard->Print(GetNameOfEntity(pDrunkard->ID()) + ": Imma go to bed !");
+        pDrunkard->Print(GetNameOfEntity(pDrunkard->ID()) + ": Time to sleep");
 
         pDrunkard->ChangeLocation(home);
     }

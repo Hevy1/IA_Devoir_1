@@ -161,7 +161,7 @@ void CookStew::Enter(MinersWife* wife)
   
     //send a delayed message myself so that I know when to take the stew
     //out of the oven
-    Dispatch->DispatchMessage(.5,                   //time delay
+    Dispatch->DispatchMessage(1.5,                  //time delay
                               wife->ID(),           //sender ID
                               wife->ID(),           //receiver ID
                               Msg_StewReady,        //msg
